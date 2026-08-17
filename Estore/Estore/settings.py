@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'store.apps.StoreConfig',
-    'CategoryApp.apps.CategoryappConfig'
+    'CategoryApp.apps.CategoryappConfig',
+    'AccountApp.apps.AccountappConfig'
 ]
 
 MIDDLEWARE = [
@@ -120,3 +121,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS=[
     BASE_DIR,"static"
 ]
+AUTH_USER_MODEL='AccountApp.Account'
+
+MEDIA_URL='/media/'
+MEDIA_ROOT='/media'
