@@ -1,3 +1,6 @@
 from django.shortcuts import render
+from store.models import *
 def HomeView(request):
-    return render(request,"home.html")
+    products=Product.objects.all().filter(isAvailable=True)
+    context={'products':products}
+    return render(request,"home.html",context)

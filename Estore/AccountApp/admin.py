@@ -5,7 +5,8 @@ from .models import *
 
 class AccountAdmin(UserAdmin):
     list_display=['email','username','first_name','last_name','is_superuser']
+    
     filter_horizontal=()
-    list_filter=()
+    list_filter=['username']
     fieldsets=()
 admin.site.register(Account,AccountAdmin)

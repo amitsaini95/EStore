@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <h2>Our Store</h2>
+    </div>
+<div class="row">
+    <div class="col-2">
+        <h5>Categories</h5>
+        <h6><a href="{% url 'storeList' %}" style="text-decoration:none;">All </a></h6>
+        {% for cat in categories  %}
+        <h6 class=""><a  href="{% url 'CategoryProduct' cat.slug %}" style="text-decoration:none;">{{cat.categoryName|capfirst}}</a></h6>
+        
+        {% endfor %}
+   
+    </div>
+    
+    <div class="col-10">
+        <h5>{{productCount}} items found</h5>
+    <div class="row">
+    
+    {% for product in  products %}
+    <div class="col-4 my-2 ">
+        <div class="card" style="box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;">
+        <a href="{{product.get_url}}"><img src="{{product.productImage.url}}" class="card-img-top" alt="..." width='100%' height='380px'></a>
+        
+        <div class="card-body " style="padding:10px!important;">
+                <h6 class="card-title ">{{product.productName|capfirst}}</h6>
+                <h4 class="card-text text-danger">${{product.price}}</h4>
+                <button class="form-control btn btn-primary">Add to Cart</button> 
+         
+        </div>
+        
+        </div>
+    </div>
+    {% endfor %}
+</div>
+    </div>
+    
+   
+    
+</div>
+</div>
+{% endblock %}
