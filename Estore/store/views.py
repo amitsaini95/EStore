@@ -23,3 +23,5 @@ def ProductDetailCategoryView(request,category_slug,product_slug):
         pass
     context={'singleproduct':singleproduct}
     return render(request,"store/productDetails.html",context)
+def CartView(request):
+    return render(request,"store/cart.html")

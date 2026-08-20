@@ -1,0 +1,60 @@
+
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-9">
+        <div class="cartProduct" >
+           <table class="w-100">
+            <thead>
+                <th scope="col">S.no</th>
+                <th scope="col">Product</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+                <th scope="col">total</th>
+                <th scope="col">Action</th>
+            </thead>
+          
+           <tbody>
+            {% for cartitem in cartitems %}
+            <tr>
+                
+                <th class="row">{{ forloop.counter}}</th>
+                <td><img src="{{cartitem.product.productImage.url}}" width="100" height="100"><span>{{cartitem.product.productName}} </span></td>
+                <td><a href="{% url 'removeCart' cartitem.product.id %}"><button> - </button></a> {{cartitem.quantity}} <a href="{% url 'addCart' cartitem.product.id %}"><button>+</button></a></td>
+                <td>{{cartitem.product.price}}</td>
+                <td>${{cartitem.sub_total}}</td>
+                <td>  <button class="btn btn-danger">Remove</button></td>
+                
+            
+            </tr>
+            {% endfor %}
+          
+
+         
+            
+             
+           </tbody>
+           </table>
+             
+        </div>
+    </div>
+    <div class="col-3">
+    <div class="cartTotal">
+        <div class="cart">
+            <h6>Total Price </h6><span>{{total}}</span>
+            
+        </div>
+        <div class="cart">
+            <h6>Tax </h6><span>{{tax}}</span>
+            
+        </div>
+        <hr>
+         <div class="cart">
+            <h6>Grand Total </h6><span>{{grandTotal}}</span>
+            
+        </div>
+
+    </div>
+    </div>
+</div>
+{% endblock content %}

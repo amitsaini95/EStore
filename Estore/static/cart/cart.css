@@ -1,0 +1,18 @@
+.cartProduct{
+    background-color: rgb(250, 250, 250);
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    height: auto;
+    padding: 20px;
+}
+
+.cartTotal{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+
+padding:20px;
+}
+.cartTotal .cart{
+
+display: flex;
+justify-content:space-between;
+
+}

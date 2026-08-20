@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,17 +57,19 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
+                      {% block content %}
+  
+                {% endblock %}
                 </div>
             </div>
         </div>
         <!-- This is a placeholder for child content -->
-        {% block content %}
-  
-        {% endblock %}
+      
     </main>
 
     <footer>
         <p>© 2026 My Website</p>
     </footer>
+    <link rel="stylesheet" href="{% static "cart/cart.css" %}">
 </body>
 </html>
