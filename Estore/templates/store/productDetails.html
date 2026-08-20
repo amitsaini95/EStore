@@ -13,7 +13,14 @@
             {% if singleproduct.stock <= 0 %}
             <h4>Out of Stock</h4>
             {% else %}
+            {% if incartitems %}
+           <button type="button" class="btn btn-success
+            btn-lg">Added to cart <i class="bi bi-check-lg"></i></button>
+             <a href="{% url "Cartlist" %}"><button type="button" class="btn btn-primary
+            btn-lg">View cart <i class="bi bi-eye"></i> </button></a>
+           {% else%}
             <a href="{% url 'addCart' singleproduct.id %}"><button class="  w-50 btn btn-primary">Add to Cart</button></a> 
+            {% endif %}
             {% endif %}
         </div>
     </div>

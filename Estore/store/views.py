@@ -1,6 +1,8 @@
 from django.shortcuts import render,get_object_or_404
 from CategoryApp.models import Category
 from .models import Product
+from CartApp.models import *
+from CartApp.views import _cart_id
 # Create your views here.
 def StoreView(request,slug=None):
     category=None
@@ -18,10 +20,11 @@ def StoreView(request,slug=None):
 def ProductDetailCategoryView(request,category_slug,product_slug):
     try:
         singleproduct=Product.objects.get(category__slug=category_slug,slug=product_slug)
+        inCartitems=CartItem.objects.filter(cart__cartId=_cart_id(request),product=singleproduct).exists()
 
     except:
         pass
-    context={'singleproduct':singleproduct}
+    context={'singleproduct':singleproduct,'incartitems':inCartitems}
     return render(request,"store/productDetails.html",context)
 def CartView(request):
     return render(request,"store/cart.html")
