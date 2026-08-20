@@ -1,6 +1,8 @@
 
 {% extends "base.html" %}
 {% block content %}
+
+{% if cartitems %}
 <div class="row">
     <div class="col-9">
         <div class="cartProduct" >
@@ -23,7 +25,7 @@
                 <td><a href="{% url 'removeCart' cartitem.product.id %}"><button> - </button></a> {{cartitem.quantity}} <a href="{% url 'addCart' cartitem.product.id %}"><button>+</button></a></td>
                 <td>{{cartitem.product.price}}</td>
                 <td>${{cartitem.sub_total}}</td>
-                <td>  <button class="btn btn-danger">Remove</button></td>
+                <td>  <a href="{% url "removeCartButton" cartitem.product.id %}"><button class="btn btn-danger">Remove</button></a></td>
                 
             
             </tr>
@@ -37,6 +39,7 @@
            </table>
              
         </div>
+      
     </div>
     <div class="col-3">
     <div class="cartTotal">
@@ -56,5 +59,12 @@
 
     </div>
     </div>
+    
 </div>
+  {% else %}
+  <div class="emptyCartitems my-2 text-center">
+        <h2 class="text-danger">Your Shoping Cart is Empty</h2>
+        <a href="{% url "storeList" %}"><button class="btn btn-dark text-capitalize">Continue Shoping</button></a>
+    </div>
+    {% endif %}
 {% endblock content %}

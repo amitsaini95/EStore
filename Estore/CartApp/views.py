@@ -27,29 +27,33 @@ def AddCartView(request,product_id):
 def removeCartView(request,product_id):
     cart=Cart.objects.get(cartId=_cart_id(request))
     product=Product.objects.get(id=product_id)
-    cart_items=CartItem.objects.filter(product=product,cart=cart)
-    for cart in cart_items:
-        if cart.quantity>1:
-            cart.quantity-=1
-            cart.save()
-        else:
-            cart.quantity=1
-            cart.save()
-        return redirect('Cartlist')
+    cart_items=CartItem.objects.get(product=product,cart=cart)
+
+    if cart_items.quantity>1:
+        cart_items.quantity-=1
+        cart_items.save()
+    else:
+        cart_items.quantity=1
+        cart_items.save()
+    return redirect('Cartlist')
     
 
+def removeCartButtonView(request,product_id):
+    cart=Cart.objects.get(cartId=_cart_id(request))
+    product=Product.objects.get(id=product_id)
+    cart_items=CartItem.objects.get(product=product,cart=cart)
+    cart_items.delete()
+    return redirect('Cartlist')
 def CartView(request,total=0,quantity=0,cart_items=None):
     try:
         cart=Cart.objects.get(cartId=_cart_id(request))
         cart_items=CartItem.objects.filter(cart=cart,isActive=True)
         for cartproduct in cart_items:
             total+=(cartproduct.product.price * cartproduct.quantity)
-            print(total)
             quantity+=cartproduct.quantity
         tax=(2*total)/100
-        grandTotal=tax+total
-       
-   
+        grandTotal=total+tax
+    
     except:
         pass
     context={
@@ -58,5 +62,5 @@ def CartView(request,total=0,quantity=0,cart_items=None):
         'total':total,
         'tax':tax,
         'grandTotal':grandTotal 
-        }
+    }
     return render(request,"store/cart.html",context)

@@ -27,7 +27,7 @@
         <div class="card-body " style="padding:10px!important;">
                 <h6 class="card-title ">{{product.productName|capfirst}}</h6>
                 <h4 class="card-text text-danger">${{product.price}}</h4>
-                <button class="form-control btn btn-primary">Add to Cart</button> 
+                <a href="{% url "addCart" product.id %}"><button class="form-control btn btn-primary">Add to Cart</button> </a>
          
         </div>
         
