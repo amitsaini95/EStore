@@ -8,7 +8,19 @@ def _cart_id(request):
         cart=request.session.create()
     return cart
 def AddCartView(request,product_id):
+    productVariation=[]
     product=Product.objects.get(id=product_id)
+    if request.method =="POST":
+        for item in request.POST:
+            key=item
+            value=request.POST[key]
+            try:
+                variations=Variation.objects.get(product=product,variationCategory__iexact=key,variationValue__iexact=value)
+                productVariation.append(variations)
+                print(variations,"varkjfdskdfk")
+            except:
+                pass
+
     try:
         cart=Cart.objects.get(cartId=_cart_id(request))
     except Cart.DoesNotExist:
@@ -16,11 +28,16 @@ def AddCartView(request,product_id):
     cart.save()
     try:
         cart_item=CartItem.objects.get(product=product,cart=cart)
+        if len(productVariation) > 0:
+            for item in productVariation:
+                cart_item.variation.add(item)
         cart_item.quantity+=1
         cart_item.save()
     except CartItem.DoesNotExist:
         cart_item=CartItem.objects.create(product=product,cart=cart,quantity=1)
-    
+        if len(productVariation) >0:
+            for item in productVariation:
+                cart_item.variation.add(item)
         cart_item.save()
     return redirect('Cartlist')
 

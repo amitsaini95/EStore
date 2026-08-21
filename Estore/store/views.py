@@ -30,6 +30,7 @@ def StoreView(request,slug=None):
     return render(request,'store/store.html',context)
 
 def ProductDetailCategoryView(request,category_slug,product_slug):
+  
     try:
         singleproduct=Product.objects.get(category__slug=category_slug,slug=product_slug)
         inCartitems=CartItem.objects.filter(cart__cartId=_cart_id(request),product=singleproduct).exists()

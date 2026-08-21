@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
+<form method="post" action="{% url 'addCart' singleproduct.id %}">
+{% csrf_token %}
 <div class="container" style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
     <div class="row" >
         <div class="col-6">
@@ -9,17 +11,41 @@
             <h2>{{singleproduct.productName}}</h2>
             <h4>${{singleproduct.price}}</h4>
             <p>{{singleproduct.description|truncatewords:20}}</p>
-
+            
             {% if singleproduct.stock <= 0 %}
             <h4>Out of Stock</h4>
             {% else %}
             {% if incartitems %}
+            
            <button type="button" class="btn btn-success
             btn-lg">Added to cart <i class="bi bi-check-lg"></i></button>
              <a href="{% url "Cartlist" %}"><button type="button" class="btn btn-primary
             btn-lg">View cart  <i class="bi bi-eye"></i>  </button></a>
            {% else%}
-            <a href="{% url 'addCart' singleproduct.id %}"><button class="  w-50 btn btn-primary">Add to Cart</button></a> 
+           <div class="selectColor my-2">
+            <h5>Choose Color</h5>
+
+           <select name="color" class="w-25 form-control form-select " required>
+               <option value="" disabled selected>select Color</option>
+            {%  for i in singleproduct.variation_set.colors %}
+            <option value="{{i.variationValue}}">
+            {{i.variationValue}}
+            </option>
+            {% endfor %}
+           </select>
+        </div>
+        <div class="selectSize my-2">
+            <h5>Choose Size</h5>
+           <select name="size" class="w-25 form-control form-select " required>
+               <option value="" disabled selected>select Size</option>
+            {%  for i in singleproduct.variation_set.sizes %}
+            <option value="{{i.variationValue}}">
+            {{i.variationValue}}
+            </option>
+            {% endfor %}
+           </select>
+        </div>
+          <button class="  w-50 btn btn-primary" type="submit">Add to Cart</button>
             {% endif %}
             {% endif %}
         </div>

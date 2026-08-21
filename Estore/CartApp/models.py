@@ -8,6 +8,7 @@ class Cart(models.Model):
     def __str__(self):
         return self.cartId
 class CartItem(models.Model):
+    variation=models.ManyToManyField(Variation,blank=True)
     product=models.ForeignKey(Product,on_delete=models.CASCADE,related_name="CartProducts")
     cart=models.ForeignKey(Cart,on_delete=models.CASCADE)
     quantity=models.IntegerField()
@@ -16,6 +17,7 @@ class CartItem(models.Model):
 
     def sub_total(self):
         return self.product.price * self.quantity
-    def __str__(self):
-        return self.product.productName
+    def __unicode__(self):
+        return self.variation.variableValue
 
+    
