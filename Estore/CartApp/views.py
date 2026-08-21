@@ -46,6 +46,8 @@ def removeCartButtonView(request,product_id):
     return redirect('Cartlist')
 def CartView(request,total=0,quantity=0,cart_items=None):
     try:
+        tax=0
+        grandTotal=0
         cart=Cart.objects.get(cartId=_cart_id(request))
         cart_items=CartItem.objects.filter(cart=cart,isActive=True)
         for cartproduct in cart_items:

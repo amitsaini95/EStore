@@ -1,6 +1,7 @@
 from django.shortcuts import render,get_object_or_404
 from CategoryApp.models import Category
 from .models import Product
+from django.db.models import Q
 from CartApp.models import *
 from CartApp.views import _cart_id
 from django.core.paginator import Paginator
@@ -15,6 +16,7 @@ def StoreView(request,slug=None):
         paginator=Paginator(products,6)
         page=request.GET.get('page')
         paged_paginator=paginator.get_page(page)
+        last_page=paged_paginator.paginator.num_pages
     else:
         products=Product.objects.filter(isAvailable=True)
         paginator=Paginator(products,4)
@@ -38,3 +40,17 @@ def ProductDetailCategoryView(request,category_slug,product_slug):
     return render(request,"store/productDetails.html",context)
 def CartView(request):
     return render(request,"store/cart.html")
+
+def SearchView(request):
+    products=''
+    productCount=0
+    if 'keyword' in request.GET:
+        keyword=request.GET['keyword']
+        if keyword :
+            products=Product.objects.order_by('-created').filter(Q(productName__icontains=keyword) | Q(category__categoryName__icontains=keyword))
+            productCount=products.count()
+    context={
+        'products':products,
+        'productCount':productCount
+    }
+    return render(request,"store/store.html",context)
