@@ -27,7 +27,7 @@
         <div class="card-body " style="padding:10px!important;">
                 <h6 class="card-title ">{{product.productName|capfirst}}</h6>
                 <h4 class="card-text text-danger">${{product.price}}</h4>
-                <a href="{% url "addCart" product.id %}"><button class="form-control btn btn-primary">Add to Cart</button> </a>
+                <a href="{{product.get_url}}"><button class="form-control btn btn-primary">View Details</button> </a>
          
         </div>
         
@@ -39,6 +39,31 @@
     
    
     
+</div>
+<div class="row">
+    <div class="col-12">
+
+    <nav aria-label="Page navigation example">
+  <ul class="pagination">
+     {% if products.has_previous %}
+     <li class="page-item"><a class="page-link" href="?page={{products.previous_page_number}}">Previous</a></li>
+  
+    {% endif %}
+    {% for n in numberofpage %}
+   
+    <li class="page-item"><a class="page-link" href="?page={{n}}">{{n}}</a></li>
+  
+    {% endfor %}
+
+    {% if products.has_next %}
+    <li class="page-item"><a class="page-link" href="?page={{ last_page}}">Last</a></li>
+    <li class="page-item"><a class="page-link" href="?page={{ products.next_page_number }}">Next</a></li>
+    {% endif %}
+  </ul>
+</nav>
+    
+
+    </div>
 </div>
 </div>
 {% endblock %}
