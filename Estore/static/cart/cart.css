@@ -16,3 +16,8 @@ display: flex;
 justify-content:space-between;
 
 }
+ .cartProductName {
+    display: flex !important;
+    justify-content:center;
+    align-items: center;
+}

@@ -9,7 +9,7 @@
            <table class="w-100">
             <thead>
                 <th scope="col">S.no</th>
-                <th scope="col">Product</th>
+                <th scope="col" class="text-center">Product</th>
                 <th scope="col">Quantity</th>
                 <th scope="col">Price</th>
                 <th scope="col">total</th>
@@ -20,8 +20,17 @@
             {% for cartitem in cartitems %}
             <tr>
                 
-                <th class="row">{{ forloop.counter}}</th>
-                <td><img src="{{cartitem.product.productImage.url}}" width="100" height="100"><span><a href="{{cartitem.product.get_url}}">{{cartitem.product.productName}}</a> </span></td>
+                <td>{{ forloop.counter}}</td>
+                <td class="cartProductName"><h6><img src="{{cartitem.product.productImage.url}}" width="100" height="100"></h6><h6><a href="{{cartitem.product.get_url}}">{{cartitem.product.productName}}<a/>
+                    <p>
+                
+                 {% for color in  cartitem.variation.colors %}
+                 color:  {{color}}
+               {% endfor %}
+                {% for size in  cartitem.variation.sizes %}
+                 size:   {{size}}
+               {% endfor %}
+            </p></h6></td>
                 <td><a href="{% url 'removeCart' cartitem.product.id %}"><button> - </button></a> {{cartitem.quantity}} <a href="{% url 'addCart' cartitem.product.id %}"><button>+</button></a></td>
                 <td>{{cartitem.product.price}}</td>
                 <td>${{cartitem.sub_total}}</td>
