@@ -31,10 +31,15 @@
                  size:   {{size}}
                {% endfor %}
             </p></h6></td>
-                <td><a href="{% url 'removeCart' cartitem.product.id %}"><button> - </button></a> {{cartitem.quantity}} <a href="{% url 'addCart' cartitem.product.id %}"><button>+</button></a></td>
+                
+                <td>
+                    <a href="{% url 'quantitysubCartItem' cartitem.id %}"><button> - </button></a> {{cartitem.quantity}} </a>
+                     <a href="{% url 'quanatiyAddCartItem' cartitem.id %}"><button> + </button></a>
+                    
+                </td>
                 <td>{{cartitem.product.price}}</td>
                 <td>${{cartitem.sub_total}}</td>
-                <td>  <a href="{% url "removeCartButton" cartitem.product.id %}"><button class="btn btn-danger">Remove</button></a></td>
+                <td>  <a href="{% url 'removeCartButton' cartitem.id %}"><button class="btn btn-danger">Remove</button></a></td>
                 
             
             </tr>
