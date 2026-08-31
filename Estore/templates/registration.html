@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block  content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            {% include "alerts.html" %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+           <form method="post" >
+    {% csrf_token %}
+
+   
+
+    <!-- 2. Loop through individual fields and their unique errors -->
+    {% for field in form %}
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            
+            {% if field.errors %}
+                <div class="text-danger">
+                    {{ field.errors }}
+                </div>
+            {% endif %}
+        </div>
+
+    {% endfor %}
+         <!-- 1. Render Form-Wide / Cross-Field Errors -->
+    {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock   %}
+
