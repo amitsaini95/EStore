@@ -40,7 +40,22 @@
                                 <li class="nav-item">
                                 <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Cart{{counter}}</a>
                                 </li>
+                                {% if request.user.is_authenticated %}
+                                <div class="userAuth">
+                                  <li class="nav-item">
+                                <a class="nav-link" href="#">Welcome {{request.user.username}}</a>
+                                {% else %}
+                                </li>
+                                  <li class="nav-item">
+                                <a class="nav-link" href="#">Register </a>
+                                </li>
+                                   <li class="nav-item">
+                                <a class="nav-link" href="#">Login </a>
+                                </li>
+                            </div>
+                                {% endif %}
                             </ul>
+                            
                             <form class="d-flex" action="{% url "Search" %}">
                                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
                                 <button class="btn btn-outline-success" type="submit">Search</button>
