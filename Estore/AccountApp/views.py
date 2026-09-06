@@ -78,3 +78,7 @@ def ActivateView(request,uidb64,token):
 
 def DashboardView(request):
     return render(request,"Dashboard.html")
+
+def LogoutView(request):
+    logout(request)
+    return redirect('Login')

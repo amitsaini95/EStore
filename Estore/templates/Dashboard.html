@@ -14,15 +14,20 @@
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     
                     <li>
-                        <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                        <a href="{% url 'Dashboard' %}" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
                        
                     </li>
                     <li>
-                        <a href="#" class="nav-link px-0 align-middle">
+                        <a href="#jdsf" class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Orders</span></a>
                     </li>
-                  
+                    <div class="LogOutBtn">
+                   <li>
+                        <a href="{% url 'Logout' %}" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Logout</span></a>
+                    </li>
+                </div>
               
                 
                 </ul>
@@ -30,7 +35,7 @@
                
         </div>
         <div class="col-10 py-3">
-            Content area...
+           
         </div>
     </div>
 </div>
