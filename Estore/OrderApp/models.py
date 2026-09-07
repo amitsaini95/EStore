@@ -21,8 +21,9 @@ class Payment(models.Model):
     def __str__(self):
         return self.paymentId
 class Order(models.Model):
-    user=models.ForeignKey(Account,on_delete=models.CASCADE)
-    payment=models.ForeignKey(Payment,on_delete=models.CASCADE)
+    user=models.ForeignKey(Account,on_delete=models.SET_NULL,null=True)
+    payment=models.ForeignKey(Payment,on_delete=models.SET_NULL,null=True)
+    orderNumber=models.CharField(max_length=100)
     firstName=models.CharField(max_length=100)
     lastName=models.CharField(max_length=100)
     email=models.EmailField(max_length=200)
@@ -42,7 +43,7 @@ class Order(models.Model):
     updated=models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.user.first_name
+        return self.firstName
 
 class OrderProduct(models.Model):
     order=models.ForeignKey(Order,on_delete=models.CASCADE)

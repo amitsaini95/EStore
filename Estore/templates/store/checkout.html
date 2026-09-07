@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<form method="post">
+<form method="post" action="{% url 'placeorder' %}">
     {% csrf_token %}
 <div class="row">
     
@@ -9,35 +9,56 @@
             <h3>Billing Address</h3>
                     <div class="row">
                     <div class="col-md-6">
-                    <label for="{{ form.firstName.id_for_label }}" class="form-label">First Name</label>
-                     {{ form.firstName }}
-                    <div class="invalid-feedback">{{ form.firstName.errors }}</div>
+                    <label for="firstName" class="form-label">First Name</label>
+                   <input type="text" name="firstName" class="form-control" placeholder="Enter the First Name" required>
+                   
+                    </div>
+                    <div class="col-md-6">
+                    <label for="lastName" class="form-label">Last Name</label>
+                   <input type="text" name="lastName" class="form-control" placeholder="Enter the Last Name" required>
+                   
+                    </div>
+                    <div class="col-md-6">
+                    <label for="email" class="form-label">Email</label>
+                   <input type="email" name="email" class="form-control" placeholder="Enter the Email " required>
+                   
+                    </div>
+                    <div class="col-md-6">
+                    <label for="phoneNumber" class="form-label">phone Number</label>
+                   <input type="tel:" name="phoneNumber" class="form-control" placeholder="Enter the phoneNumber" required>
+                   
+                    </div>
+                    <div class="col-md-6">
+                    <label for="addressLine1" class="form-label">Address Line 1</label>
+                   <input type="text" name="addressLine1" class="form-control" placeholder="Enter the addressLine1" required>
+                   
                     </div>
                      <div class="col-md-6">
-                    <label for="{{ form.lastName.id_for_label }}" class="form-label">Last Name</label>
-                     {{ form.lastName }}
-                    <div class="invalid-feedback">{{ form.lastName.errors }}</div>
+                    <label for="addressLine2" class="form-label">Address Line 2</label>
+                   <input type="text" name="addressLine2" class="form-control" placeholder="Enter the addressLine2" required>
+                   
                     </div>
                       <div class="col-md-6">
-                    <label for="{{ form.addressLine1.id_for_label }}" class="form-label">Address Line 1</label>
-                     {{ form.addressLine1 }}
-                    <div class="invalid-feedback">{{ form.addressLine1.errors }}</div>
+                    <label for="city" class="form-label">City</label>
+                   <input type="text" name="city" class="form-control" placeholder="Enter the city" required>
+                   
                     </div>
-                      <div class="col-md-6">
-                    <label for="{{ form.addressLine2.id_for_label }}" class="form-label">Address Line 2</label>
-                     {{ form.addressLine1 }}
-                    <div class="invalid-feedback">{{ form.addressLine1.errors }}</div>
+                     <div class="col-md-6">
+                    <label for="state" class="form-label">state</label>
+                   <input type="text" name="state" class="form-control" placeholder="Enter the state" required>
+                   
                     </div>
-                       <div class="col-md-6">
-                    <label for="{{ form.city.id_for_label }}" class="form-label">City</label>
-                     {{ form.city }}
-                    <div class="invalid-feedback">{{ form.city.errors }}</div>
+                     <div class="col-md-6">
+                    <label for="country" class="form-label">Country</label>
+                   <input type="text" name="country" class="form-control" placeholder="Enter the country" required>
+                   
                     </div>
-                       <div class="col-md-6">
-                    <label for="{{ form.state.id_for_label }}" class="form-label">State</label>
-                     {{ form.state }}
-                    <div class="invalid-feedback">{{ form.state.errors }}</div>
+                    <div class="col-md-6">
+                         <label for="orderNote" class="form-label">Order Note</label>
+                         <textarea name="orderNote"  class="form-control" placeholder="Enter the orderNote" required></textarea>
+
                     </div>
+                    
                 
                 </div>
               

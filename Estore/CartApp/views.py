@@ -107,41 +107,31 @@ def CartView(request,total=0,quantity=0,getcartitem=None):
     return render(request,"store/cart.html",context)
 
 
-# def CheckOutCartItemView(request):
-#     tax=0
-#     grandTotal=0
-#     quantity=0
-#     total=0
-#     try:
-#             cart=Cart.objects.get(cartId=_cart_id(request))
-#             getcartitem=CartItem.objects.filter(cart=cart,isActive=True)
-#             for cartproduct in getcartitem:
-#                 total+=(cartproduct.product.price * cartproduct.quantity)
-#                 quantity+=cartproduct.quantity
-#             tax=(2*total)/100
-#             grandTotal=total+tax
+def CheckOutCartItemView(request):
+    tax=0
+    grandTotal=0
+    quantity=0
+    total=0
+    try:
+            cart=Cart.objects.get(cartId=_cart_id(request))
+            getcartitem=CartItem.objects.filter(cart=cart,isActive=True)
+            for cartproduct in getcartitem:
+                total+=(cartproduct.product.price * cartproduct.quantity)
+                quantity+=cartproduct.quantity
+            tax=(2*total)/100
+            grandTotal=total+tax
         
-#     except:
-#         pass
+    except:
+        pass
+  
+    context={
        
-#     if request.method == "POST":
-#         form=BillingAddressForm(request.POST)
-#         if form.is_valid():
-#             checkForm=form.save(commit=False)
-#             checkForm.user=request.user
-#             checkForm.save()
-
-#             return redirect('Home')
-#     else:
-#         form=BillingAddressForm()
-#     context={
-#         'form':form,
-#         'cartitems':getcartitem,
-#         'quantity':quantity,
-#         'total':total,
-#         'tax':tax,
-#         'grandTotal':grandTotal 
+        'cartitems':getcartitem,
+        'quantity':quantity,
+        'total':total,
+        'tax':tax,
+        'grandTotal':grandTotal 
                 
-#     }
+    }
     
-#     return render(request,"store/checkout.html",context) 
+    return render(request,"store/checkout.html",context) 

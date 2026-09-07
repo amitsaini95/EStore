@@ -6,5 +6,5 @@ urlpatterns = [
     path('cart-item-add/<int:cart_id>',views.QuantityAddCartItemView,name="quanatiyAddCartItem"),
     path('cart-item-sub/<int:cart_id>',views.QuantitySubCartItemView,name="quantitysubCartItem"),
     path('remove-cart-item/<int:product_id>',views.removeCartButtonView,name="removeCartButton"),
-    # path('checkout/',views.CheckOutCartItemView,name="checkoutCartItem")
+    path('checkout/',views.CheckOutCartItemView,name="checkoutCartItem")
 ]
