@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from store.models import *
 from .models import *
 # Create your views here.
-
+from .forms import *
 from django.db.models import Q
 def _cart_id(request):
     cart=request.session.session_key
@@ -44,19 +44,20 @@ def AddCartView(request,product_id):
         if productVariation in variationId:
             index=variationId.index(productVariation)
             item_id=cartIDAdd[index]
-            cart=CartItem.objects.get(id=item_id,product=product)
+            cart=CartItem.objects.get(id=item_id,product=product,user=request.user)
             cart.quantity+=1
             cart.save()
           
         else:
-            cartitemNEw=CartItem.objects.create(product=product,cart=cart,quantity=1)
+            cartitemNEw=CartItem.objects.create(product=product,cart=cart,quantity=1,user=request.user)
             if len(productVariation)>0:
                 cartitemNEw.variation.clear()
                 cartitemNEw.variation.add(*productVariation)
             cartitemNEw.save()
     
     else:
-        cartItemNew=CartItem.objects.create(product=product,cart=cart,quantity=1)
+        cartItemNew=CartItem.objects.create(product=product,cart=cart,quantity=1,user=request.user)
+        cartItemNew.user=request.user
         if len(productVariation)>0:
             cartItemNew.variation.clear()
             cartItemNew.variation.add(*productVariation)
@@ -104,3 +105,43 @@ def CartView(request,total=0,quantity=0,getcartitem=None):
         'grandTotal':grandTotal 
     }
     return render(request,"store/cart.html",context)
+
+
+# def CheckOutCartItemView(request):
+#     tax=0
+#     grandTotal=0
+#     quantity=0
+#     total=0
+#     try:
+#             cart=Cart.objects.get(cartId=_cart_id(request))
+#             getcartitem=CartItem.objects.filter(cart=cart,isActive=True)
+#             for cartproduct in getcartitem:
+#                 total+=(cartproduct.product.price * cartproduct.quantity)
+#                 quantity+=cartproduct.quantity
+#             tax=(2*total)/100
+#             grandTotal=total+tax
+        
+#     except:
+#         pass
+       
+#     if request.method == "POST":
+#         form=BillingAddressForm(request.POST)
+#         if form.is_valid():
+#             checkForm=form.save(commit=False)
+#             checkForm.user=request.user
+#             checkForm.save()
+
+#             return redirect('Home')
+#     else:
+#         form=BillingAddressForm()
+#     context={
+#         'form':form,
+#         'cartitems':getcartitem,
+#         'quantity':quantity,
+#         'total':total,
+#         'tax':tax,
+#         'grandTotal':grandTotal 
+                
+#     }
+    
+#     return render(request,"store/checkout.html",context) 

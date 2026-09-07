@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'store.apps.StoreConfig',
     'CategoryApp.apps.CategoryappConfig',
     'AccountApp.apps.AccountappConfig',
-    'CartApp.apps.CartappConfig'
+    'CartApp.apps.CartappConfig',
+    'OrderApp.apps.OrderappConfig'
 ]
 
 MIDDLEWARE = [
@@ -142,3 +143,4 @@ EMAIL_HOST_PASSWORD='rtrqariquvodbnnh'
 EMAIL_USE_TLS=True
 EMAIL_USE_SSL = False 
 DEFAULT_FROM_EMAIL = 'amitsaini201295@gmail.com'
+

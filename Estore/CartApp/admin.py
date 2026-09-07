@@ -9,4 +9,5 @@ class CartAdmin(admin.ModelAdmin):
     def size(self,obj):
             return [i for i in obj.variation.sizes()]
 admin.site.register(Cart)
+
 admin.site.register(CartItem,CartAdmin)

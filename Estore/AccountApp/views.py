@@ -40,18 +40,20 @@ def RegisterView(request):
     return render(request,"registration.html",context)
 def LoginView(request):
     if request.method == "POST":
-        form=LoginForm(data=request.POST)
+        form=LoginForm(request=request,data=request.POST)
         if form.is_valid():
-            email = form.cleaned_data['email'] 
+            username = form.cleaned_data['username'] 
+
             password = form.cleaned_data['password']
-            user = authenticate(email=email,password=password)
+
+            user = authenticate(request,username=username,password=password)
+            print(user.username)
             if user is  not None: 
                 login(request,user)
               
                 messages.success(request,"logged in successfully ||")
                 return redirect('Dashboard')
             else:
-               
                 messages.error(request,"invalid login credentials")
     else:
         form=LoginForm()
@@ -75,6 +77,7 @@ def ActivateView(request,uidb64,token):
     else:
         messages.error(request,"invalid activate Link")
         return redirect('Home')
+
 
 def DashboardView(request):
     return render(request,"Dashboard.html")

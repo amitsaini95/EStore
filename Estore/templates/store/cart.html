@@ -33,8 +33,8 @@
             </p></h6></td>
                 
                 <td>
-                    <a href="{% url 'quantitysubCartItem' cartitem.id %}"><button> - </button></a> {{cartitem.quantity}} </a>
-                     <a href="{% url 'quanatiyAddCartItem' cartitem.id %}"><button> + </button></a>
+                    <a href="{% url 'quantitysubCartItem' cartitem.id %}" class="text-decoration-none"><button class="p-1"> - </button>  </a><span class="fs-5">{{cartitem.quantity}}</span>
+                     <a href="{% url 'quanatiyAddCartItem' cartitem.id %}"><button class="p-1"> + </button></a>
                     
                 </td>
                 <td>{{cartitem.product.price}}</td>
@@ -71,6 +71,9 @@
             
         </div>
 
+        <div class="checkout_Btn my-3">
+            <a href="{% url 'checkoutCartItem' %}" type="button" class="btn btn-primary w-100 fw-bold">checkout</a>
+        </div>
     </div>
     </div>
     
