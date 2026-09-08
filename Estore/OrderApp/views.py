@@ -3,17 +3,20 @@ from django.http import HttpResponse
 from CartApp.models import CartItem
 from .forms import *
 import datetime
+import random
+from .models import Order
 # Create your views here.
 def PlaceOrderView(request):
     currentUser=request.user
-    cartItem=CartItem.objects.filter(user=currentUser)
-    cartCount=cartItem.count()
+    cartItems=CartItem.objects.filter(user=currentUser)
+    cartCount=cartItems.count()
     if cartCount <= 0:
         return redirect('Cartlist')
     tax=0
+  
     total=0
     grandTotal=0
-    for cart in cartItem:
+    for cart in cartItems:
         total+=(cart.product.price * cart.quantity)
         print(total)
 
@@ -24,6 +27,7 @@ def PlaceOrderView(request):
     if request.method == "POST":
         
             data=Order()
+            data.user=request.user
             data.firstName=request.POST.get('firstName')
             data.lastName=request.POST.get('lastName')
             data.email=request.POST.get('email')
@@ -31,6 +35,7 @@ def PlaceOrderView(request):
             data.addressLine1=request.POST.get('addressLine1')
             data.addressLine2=request.POST.get('addressLine2')
             data.city=request.POST.get('city')
+            data.country=request.POST.get('country')
             data.state=request.POST.get('state')
             data.orderNote=request.POST.get('orderNote')
             data.orderTotal=grandTotal
@@ -41,8 +46,22 @@ def PlaceOrderView(request):
             dt=int(datetime.date.today().strftime('%d'))
             d=datetime.date(year,month,dt)
             currentDate=d.strftime("%Y%m%d")
-            orderNumber=currentDate+str(data.id)
+            
+            
+            orderNumber=currentDate+str(int(random.uniform(1,10000)))
             data.orderNumber=orderNumber
             data.save()
-            return redirect('Home')
+        
+            order=Order.objects.get(user=currentUser,is_order=False,orderNumber=orderNumber)
+            print(order)
+            context={
+                 'order':order,
+                 'cartitems':cartItems,
+                 'tax':tax,
+                 'total':total,
+                 'grandtotal':grandTotal
+            }
+            return render(request,"payments.html",context)
     
+def PaymentsView(request):
+     return render(request,"payments.html")

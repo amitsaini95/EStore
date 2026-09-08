@@ -45,6 +45,11 @@ class Order(models.Model):
     def __str__(self):
         return self.firstName
 
+    def fullName(self):
+        return f"{self.firstName} {self.lastName}" 
+    def fullAddress(self):
+        
+        return f"{self.addressLine1} {self.addressLine2}" 
 class OrderProduct(models.Model):
     order=models.ForeignKey(Order,on_delete=models.CASCADE)
     user=models.ForeignKey(Account,on_delete=models.CASCADE)
